@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>KH18</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>NowServlet</display-name>
+    <servlet-name>NowServlet</servlet-name>
+    <servlet-class>kh.NowServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NowServlet</servlet-name>
+    <url-pattern>/NowServlet</url-pattern>
+  </servlet-mapping>
+  <context-param>
+  	<description>로깅여부</description>
+  	<param-name>isLogEnabled</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+	<description>디버깅레벨</description>
+    <param-name>debugLevel</param-name>
+    <param-value>5</param-value>  
+  </context-param>
+  <jsp-config>
+  	<jsp-property-group>
+  		<url-pattern>/0907/view/*</url-pattern>
+  		<include-prelude>/0907/common/variable.jsp</include-prelude>
+  		<include-coda>/0907/common/footer.jsp</include-coda>
+  	</jsp-property-group>
+  </jsp-config>
+</web-app>
