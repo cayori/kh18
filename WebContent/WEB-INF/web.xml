@@ -9,12 +9,34 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
   <servlet>
     <description></description>
     <display-name>NowServlet</display-name>
     <servlet-name>NowServlet</servlet-name>
     <servlet-class>kh.NowServlet</servlet-class>
   </servlet>
+  
+  <servlet>
+        <servlet-name>JDBCDriverLoader</servlet-name>
+    	<servlet-class>kh.loader.Loader</servlet-class>
+    	<init-param>
+    		<param-name>jdbcdriver</param-name>
+    		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+    	</init-param>
+    	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet>
+        <servlet-name>DBCPInit</servlet-name>
+    	<servlet-class>kh.loader.DBCPInit</servlet-class>
+    	<init-param>
+    		<param-name>jdbcdriver</param-name>
+    		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+    	</init-param>
+    	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>NowServlet</servlet-name>
     <url-pattern>/NowServlet</url-pattern>
