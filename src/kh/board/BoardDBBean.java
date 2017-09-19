@@ -114,7 +114,7 @@ public class BoardDBBean {
 					"SELECT num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip, readcount, r "+
 					"FROM(SELECT num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip, readcount, rownum r "+
 					"FROM(SELECT num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip, readcount "+
-					"FROM boardjpjp ORDER BY ref DESC, re_step ASC, reg_date DESC) ORDER BY ref DESC, re_step ASC, reg_date DESC) WHERE r>=? AND r<=?"
+					"FROM boardjpjp ORDER BY ref DESC, re_step ASC) ORDER BY ref DESC, re_step ASC) WHERE r>=? AND r<=?"
 					);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -160,7 +160,7 @@ public class BoardDBBean {
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("UPDATE boardjpjp SET readcount+1 WHERE num = ?");
+			pstmt = conn.prepareStatement("UPDATE boardjpjp SET readcount=readcount+1 WHERE num = ?");
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
 			
@@ -176,7 +176,7 @@ public class BoardDBBean {
 				article.setSubject(rs.getString("subject"));
 				article.setPasswd(rs.getString("passwd"));
 				article.setReg_date(rs.getTimestamp("reg_date"));
-				article.setReadcount(rs.getInt("readcound"));
+				article.setReadcount(rs.getInt("readcount"));
 				article.setRef(rs.getInt("ref"));
 				article.setRe_step(rs.getInt("re_step"));
 				article.setRe_level(rs.getInt("re_level"));
