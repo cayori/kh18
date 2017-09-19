@@ -16,13 +16,13 @@ public class BoardDBBean {
 		return DriverManager.getConnection(jdbcDriver);
 	}
 	
-// - void insertArticle(BoardDataBean b) : writePro.jsp (°Ô½Ã¹° ÀÔ·Â)
+// - void insertArticle(BoardDataBean b) : writePro.jsp (ê²Œì‹œë¬¼ ìž…ë ¥)
 	public void insertArticle(BoardDataBean article) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		// ´ä±ÛÀÎÁö ÀÏ¹Ý±ÛÀÎÁö ±¸ºÐÇØ¼­ ÀÔ·Â½ÃÄÑÁÖ´Â ·ÎÁ÷
+		// ë‹µê¸€ì¸ì§€ ì¼ë°˜ê¸€ì¸ì§€ êµ¬ë¶„í•´ì„œ ìž…ë ¥ì‹œì¼œì£¼ëŠ” ë¡œì§
 		int num 		= article.getNum();
 		int ref 		= article.getRef();
 		int re_step 	= article.getRe_step();
@@ -35,11 +35,11 @@ public class BoardDBBean {
 			pstmt = conn.prepareStatement("SELECT MAX(NUM) FROM boardjpjp");
 			rs = pstmt.executeQuery();
 			
-			if(rs.next())	number = rs.getInt(1)+1;		// Ã¹¹øÂ° ÀÎÀÚ(num ÄÃ·³) ¿¡¼­ int ¸¦ ¹Þ¾Æ¿Í¶ó
+			if(rs.next())	number = rs.getInt(1)+1;		// ì²«ë²ˆì§¸ ì¸ìž(num ì»¬ëŸ¼) ì—ì„œ int ë¥¼ ë°›ì•„ì™€ë¼
 			else			number = 1;
 			
 			if( num != 0 ) {
-				sql = "UPDATE boardjpjp SET re_step+1 WHERE ref=? and re_step>?";
+				sql = "UPDATE boardjpjp SET re_step=re_step+1 WHERE ref=? and re_step>?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, ref);
 				pstmt.setInt(2, re_step);
@@ -51,7 +51,7 @@ public class BoardDBBean {
 				re_step = 0;
 				re_level = 0;
 			}
-			// Äõ¸®¸¦ ÀÛ¼º
+			// ì¿¼ë¦¬ë¥¼ ìž‘ì„±
 			sql = "INSERT INTO boardjpjp(num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip) VALUES(boardjpjp_num.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString( 1, article.getWriter());
@@ -76,7 +76,7 @@ public class BoardDBBean {
 		}		
 	}
 	
-//	- int getArticleCount(): list.jsp (ÀÔ·Â±ÛÀÇ °¹¼ö ¸®ÅÏ)
+//	- int getArticleCount(): list.jsp (ìž…ë ¥ê¸€ì˜ ê°¯ìˆ˜ ë¦¬í„´)
 	public int getArticleCount() throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -101,7 +101,7 @@ public class BoardDBBean {
 		return x;
 	}
 	
-//	- List getArticles(int s, int e) : list.jsp (sºÎÅÍ e ±îÁöÀÇ µ¥ÀÌÅÍ °¡Á®¿È)
+//	- List getArticles(int s, int e) : list.jsp (së¶€í„° e ê¹Œì§€ì˜ ë°ì´í„° ê°€ì ¸ì˜´)
 	public List getArticles(int start, int end) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -114,7 +114,7 @@ public class BoardDBBean {
 					"SELECT num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip, readcount, r "+
 					"FROM(SELECT num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip, readcount, rownum r "+
 					"FROM(SELECT num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip, readcount "+
-					"FROM boardjpjp ORDER BY ref DESC, re_step ASC) ORDER BY ref DESC, re_step ASC) WHERE r>=? AND r<=?"
+					"FROM boardjpjp ORDER BY ref DESC, re_step ASC, reg_date DESC) ORDER BY ref DESC, re_step ASC, reg_date DESC) WHERE r>=? AND r<=?"
 					);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -151,7 +151,7 @@ public class BoardDBBean {
 		return articleList;
 	}
 
-//	- BoardDataBean getArticle(int num) : content.jsp (±Û¹øÀÇ ÇØ´çÇÏ´Â µ¥ÀÌÅÍ ÇÑÁÙÀ» °¡Á®¿È)	
+//	- BoardDataBean getArticle(int num) : content.jsp (ê¸€ë²ˆì˜ í•´ë‹¹í•˜ëŠ” ë°ì´í„° í•œì¤„ì„ ê°€ì ¸ì˜´)	
 	public BoardDataBean getArticle(int num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -194,7 +194,7 @@ public class BoardDBBean {
 		return article;				
 	}
 
-//	- BoardDataBean updateGetArticle(int num) : updateForm.jsp (¼öÁ¤ÇÏ±â À§ÇÑ µ¥ÀÌÅÍ ÇÑÁÙÀ» °¡Á®¿È)
+//	- BoardDataBean updateGetArticle(int num) : updateForm.jsp (ìˆ˜ì •í•˜ê¸° ìœ„í•œ ë°ì´í„° í•œì¤„ì„ ê°€ì ¸ì˜´)
 	public BoardDataBean updateGetArticle(int num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -233,7 +233,7 @@ public class BoardDBBean {
 		return article;				
 	}
 
-//	- int updateArticle(BoardDataBean b) : updatePro.jsp (±Û¼öÁ¤)
+//	- int updateArticle(BoardDataBean b) : updatePro.jsp (ê¸€ìˆ˜ì •)
 	public int updateArticle(BoardDataBean article) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -274,7 +274,7 @@ public class BoardDBBean {
 		return x;
 	}
 
-//	- int deleteArticle(int num, String passwd) : deletePro.jsp (±Û»èÁ¦)
+//	- int deleteArticle(int num, String passwd) : deletePro.jsp (ê¸€ì‚­ì œ)
 	public int deleteArticle(int num, String passwd) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -307,7 +307,7 @@ public class BoardDBBean {
 		return x;
 	}
 
-//°Ë»ö int getArticleCount(int n, String searchKeyword) : list.jsp Å°¿öµå·Î °Ë»öµÈ ±Û °¹¼ö ¸®ÅÏ
+//ê²€ìƒ‰ int getArticleCount(int n, String searchKeyword) : list.jsp í‚¤ì›Œë“œë¡œ ê²€ìƒ‰ëœ ê¸€ ê°¯ìˆ˜ ë¦¬í„´
 	public int getArticleCount(int n, String searchKeyword) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -333,7 +333,7 @@ public class BoardDBBean {
 		return x;
 	}
 
-//°Ë»ö List getArticles(int s, int e, int n, String searchKeyword) : list.jsp (°Ë»öµÈ ±ÛÀÇ sºÎÅÍ e±îÁö °¡Á®¿È)
+//ê²€ìƒ‰ List getArticles(int s, int e, int n, String searchKeyword) : list.jsp (ê²€ìƒ‰ëœ ê¸€ì˜ së¶€í„° eê¹Œì§€ ê°€ì ¸ì˜´)
 	public List getArticles(int start, int end, int n, String searchKeyword) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;

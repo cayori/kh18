@@ -16,7 +16,7 @@
 
 	int currentPage = Integer.parseInt(pageNum);
 	//System.out.println(currentPage);
-	int startRow = (currentPage * 3)-2;
+	int startRow = (currentPage * pageSize)-(pageSize-1);
 	int endRow = currentPage * pageSize;
 	int count = 0;
 	int number = 0;
@@ -64,7 +64,7 @@
 		BoardDataBean article = (BoardDataBean)articleList.get(i);
 %>
 		<tr height="30">
-			<td align="center" width="50"><%=number %></td>
+			<td align="center" width="50"><%=number-- %></td>
 			<td width="250">
 <%
 			int wid=0;
@@ -84,7 +84,7 @@
 			<td align="center" width="100">
 				<a href="mailto:<%=article.getEmail() %>"><%=article.getWriter()%></a>
 			</td>
-			<td align="center" width="150"><%=article.getReg_date()%></td>
+			<td align="center" width="150"><%=sdf.format(article.getReg_date())%></td>
 			<td align="center" width="50"><%=article.getReadcount()%></td>
 			<td align="center" width="100"><%=article.getIp()%></td>
 		</tr>
