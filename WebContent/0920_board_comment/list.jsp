@@ -7,7 +7,7 @@
 <%@ page import = "java.text.SimpleDateFormat" %>
 <%@ include file = "./color.jsp" %>
 
-<%!
+<%
 	int pageSize = 10;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
@@ -20,7 +20,7 @@
 	
 	if(pageNum == null) pageNum = "1";
 	if(search == null)	search = "";
-	else				searchn = Integer.parseInt(request.getParameter("searchn"));
+	else					searchn = Integer.parseInt(request.getParameter("searchn"));
 
 	int currentPage = Integer.parseInt(pageNum);
 	//System.out.println(currentPage);
@@ -29,22 +29,22 @@
 	int count = 0;
 	int number = 0;
 	
-	List articleList = null;
+	List<BoardDataBean> articleList = null;
 	BoardDBBean dbPro = BoardDBBean.getInstance();
 	
 	if(search.equals("") || search == null)
 			count = dbPro.getArticleCount();
-	else	count = dbPro.getArticleCount(searchn, search);
+	else		count = dbPro.getArticleCount(searchn, search);
 	
 	CommentDBBean cdb = CommentDBBean.getInstance();
 	
 	if(count > 0){
 		if(search.equals("") || search == null)	
 				articleList = dbPro.getArticles(startRow, endRow);
-		else	articleList = dbPro.getArticles(startRow, endRow, searchn, search);		
+		else		articleList = dbPro.getArticles(startRow, endRow, searchn, search);		
 	}
 	
-	number = count - (currentPage - 1) * pageSize; // 11-(2-1)3 = 8
+	number = count - (currentPage - 1) * pageSize; // 
 %>
 
 <html>
@@ -78,9 +78,9 @@
 			<td align="center" width="100">IP</td>
 		</tr>
 <%
-	for(int i=0; i<articleList.size(); i++){
-		BoardDataBean article = (BoardDataBean)articleList.get(i);
-		int com_count = cdb.getCommentCount(article.getNum());
+		for(int i=0; i< articleList.size(); i++){
+			BoardDataBean article = (BoardDataBean)articleList.get(i);
+			int com_count = cdb.getCommentCount(article.getNum());
 %>
 		<tr height="30">
 			<td align="center" width="50"><%=number-- %></td>

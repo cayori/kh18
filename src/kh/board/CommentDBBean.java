@@ -26,7 +26,7 @@ public class CommentDBBean {
 		
 		try {
 			conn = getConnection();
-			String sql = "INSERT INTO b_commentjpjp VALUES(?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO b_commentjpjp VALUES(?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, cdb.getContent_num());
 			pstmt.setString(2, cdb.getCommenter());
@@ -35,7 +35,7 @@ public class CommentDBBean {
 			pstmt.setTimestamp(5, cdb.getReg_date());
 			pstmt.setString(6, cdb.getIp());
 			pstmt.setInt(7, cdb.getComment_num());
-			System.out.println(pstmt.executeUpdate());
+			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -126,13 +126,13 @@ public class CommentDBBean {
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("SELECT passwd FROM b_coomentjpjp WHERE content_num=? AND comment_num=?");
+			pstmt = conn.prepareStatement("SELECT passwd FROM b_commentjpjp WHERE content_num=? AND comment_num=?");
 			pstmt.setInt(1, content_num);
 			pstmt.setInt(2, comment_num);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				if(passwd.equals(rs.getString(1))) {
+				if(passwd.equals(rs.getString("passwd"))) {
 					pstmt = conn.prepareStatement("DELETE FROM b_commentjpjp WHERE content_num=? AND comment_num=?");
 					pstmt.setInt(1, content_num);
 					pstmt.setInt(2, comment_num);

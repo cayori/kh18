@@ -13,7 +13,17 @@
 <script>
 function writeSave(){
 	if(document.comment.commentt.value==""){
+		alert("내용을 입력하십시요.");
+		document.comment.commentt.focus();
+		return false;
+	}
+	if(document.comment.commenter.value==""){
 		alert("작성자를 입력하십시요.");
+		document.comment.commentt.focus();
+		return false;
+	}
+	if(document.comment.passwd.value==""){
+		alert("비밀번호를 입력하십시요.");
 		document.comment.commentt.focus();
 		return false;
 	}
@@ -73,11 +83,11 @@ function writeSave(){
 		</tr>
 		<tr height="30">
 			<td colspan="4" align="right" bgcolor="<%=value_c%>">
-				<input type="button" value="글수정" onclick="document.location.href='./updateForm.jsp?num<%=article.getNum() %>&pageNum=<%=pageNum%>'">
+				<input type="button" value="글수정" onclick="document.location.href='./updateForm.jsp?num=<%=article.getNum() %>&pageNum=<%=pageNum%>'">
 				&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="글삭제" onclick="document.location.href='./deleteForm.jsp?num<%=article.getNum() %>&pageNum=<%=pageNum%>'">
+				<input type="button" value="글삭제" onclick="document.location.href='./deleteForm.jsp?num=<%=article.getNum() %>&pageNum=<%=pageNum%>'">
 				&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="답글쓰기" onclick="document.location.href='./writeForm.jsp?num<%=num %>&ref=<%=ref%>&re_step=<%=re_step%>&re_level=<%=re_level %>'">
+				<input type="button" value="답글쓰기" onclick="document.location.href='./writeForm.jsp?num=<%=num %>&ref=<%=ref%>&re_step=<%=re_step%>&re_level=<%=re_level %>'">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" value="글목록" onclick="document.location.href='./list.jsp?pageNum=<%=pageNum%>'">
 			</td>
@@ -88,7 +98,7 @@ function writeSave(){
 		<tr bgcolor="<%=value_c%>" align="center">
 			<td>코멘트 작성</td>
 			<td colspan="2">
-				<textarea name = comment rows="6" cols="40"></textarea>
+				<textarea name = commentt rows="6" cols="40"></textarea>
 				<input type="hidden" name="content_num" value="<%=article.getNum()%>">
 				<input type="hidden" name="p_num" value="<%=pageNum%>">
 				<input type="hidden" name="comment_num" value="<%=count+1%>">
@@ -137,7 +147,7 @@ function writeSave(){
 		<center>
 <%		if(count>0){
 			// 전체 페이지 수를 연산
-			int pageCount = (count/pageSize) + (count%pageSize== 0 ? 0:1);
+			int pageCount = (count/pageSize) + (count % pageSize== 0 ? 0 : 1);
 			
 			int startPage = (int)(cCurrentPage/5)*5+1;
 			int pageBlock=5;
@@ -147,7 +157,7 @@ function writeSave(){
 			if(startPage > 5) {	%>
 				<a href="./content.jsp?num=<%=num %>&pageNum=<%=pageNum %>&cPageNum=<%= startPage-5 %>">[이전]</a>			
 <%			}
-			for(int i=0; i<= endPage; i++){	%>
+			for(int i=startPage; i<= endPage; i++){	%>
 				<a href="./content.jsp?num=<%=num %>&pageNum=<%=pageNum %>&cPageNum=<%= i %>">[<%= i %>]</a>
 <%			}	
 			if(endPage < pageCount){	%>				

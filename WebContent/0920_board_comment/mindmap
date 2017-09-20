@@ -20,7 +20,7 @@ DAO:		BoardDBBean
 			- List getComments(String content_num, int s, int e) : content.jsp (게시글 번호에 해당하는 s 부터 e 까지의 데이터 가져옴)
 			- getCommentCount() : content.jsp (댓글의 입력갯수 가져옴)
 			- deleteComment() : delCommentPro.jsp (댓글삭제)			
-			
+			z
 웹관련된 파일(/WebContent/board/)
 			- color.jsp, style.css, script.js
 			

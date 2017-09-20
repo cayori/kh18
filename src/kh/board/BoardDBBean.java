@@ -32,11 +32,11 @@ public class BoardDBBean {
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("SELECT MAX(NUM) FROM boardjpjp");
+			pstmt = conn.prepareStatement("SELECT MAX(num) FROM boardjpjp");
 			rs = pstmt.executeQuery();
 			
 			if(rs.next())	number = rs.getInt(1)+1;		// 첫번째 인자(num 컬럼) 에서 int 를 받아와라
-			else			number = 1;
+			else				number = 1;
 			
 			if( num != 0 ) {
 				sql = "UPDATE boardjpjp SET re_step=re_step+1 WHERE ref=? and re_step>?";
@@ -45,7 +45,7 @@ public class BoardDBBean {
 				pstmt.setInt(2, re_step);
 				pstmt.executeUpdate();
 				re_step = re_step + 1;
-				re_level = re_level + 1;
+				re_level = re_level + 1;			
 			}else {
 				ref = number;
 				re_step = 0;
@@ -59,9 +59,9 @@ public class BoardDBBean {
 			pstmt.setString( 3, article.getSubject());
 			pstmt.setString( 4, article.getPasswd());
 			pstmt.setTimestamp(5, article.getReg_date());
-			pstmt.setInt( 6, article.getRef());
-			pstmt.setInt( 7, article.getRe_step());
-			pstmt.setInt( 8, article.getRe_level());
+			pstmt.setInt( 6, ref);
+			pstmt.setInt( 7, re_step);
+			pstmt.setInt( 8, re_level);
 			pstmt.setString( 9, article.getContent());
 			pstmt.setString(10, article.getIp());
 			
@@ -102,11 +102,11 @@ public class BoardDBBean {
 	}
 	
 //	- List getArticles(int s, int e) : list.jsp (s부터 e 까지의 데이터 가져옴)
-	public List getArticles(int start, int end) throws Exception{
+	public List<BoardDataBean> getArticles(int start, int end) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List articleList = null;
+		List<BoardDataBean> articleList = null;
 		
 		try {
 			conn = getConnection();
@@ -215,7 +215,7 @@ public class BoardDBBean {
 				article.setSubject(rs.getString("subject"));
 				article.setPasswd(rs.getString("passwd"));
 				article.setReg_date(rs.getTimestamp("reg_date"));
-				article.setReadcount(rs.getInt("readcound"));
+				article.setReadcount(rs.getInt("readcount"));
 				article.setRef(rs.getInt("ref"));
 				article.setRe_step(rs.getInt("re_step"));
 				article.setRe_level(rs.getInt("re_level"));
@@ -334,11 +334,11 @@ public class BoardDBBean {
 	}
 
 //검색 List getArticles(int s, int e, int n, String searchKeyword) : list.jsp (검색된 글의 s부터 e까지 가져옴)
-	public List getArticles(int start, int end, int n, String searchKeyword) throws Exception{
+	public List<BoardDataBean> getArticles(int start, int end, int n, String searchKeyword) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List articleList = null;
+		List<BoardDataBean> articleList = null;
 		String[] columnName = {"writer","subject","content"};
 		
 		try {
@@ -347,7 +347,7 @@ public class BoardDBBean {
 					"SELECT num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip, readcount, r "+
 					"FROM(SELECT num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip, readcount, rownum r "+
 					"FROM(SELECT num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip, readcount "+
-					"FROM boardjpjp ORDER BY ref DESC, re_step ASC) WHERE "+columnName[n]+"LIKE '%"+searchKeyword+"%' ORDER BY ref DESC, re_step ASC) WHERE r>=? AND r<=?"
+					"FROM boardjpjp ORDER BY ref DESC, re_step ASC) WHERE "+columnName[n]+" LIKE '%"+searchKeyword+"%' ORDER BY ref DESC, re_step ASC) WHERE r>=? AND r<=?"
 					);
 
 			pstmt.setInt(1, start);
@@ -365,7 +365,7 @@ public class BoardDBBean {
 					article.setSubject(rs.getString("subject"));
 					article.setPasswd(rs.getString("passwd"));
 					article.setReg_date(rs.getTimestamp("reg_date"));
-					article.setReadcount(rs.getInt("readcound"));
+					article.setReadcount(rs.getInt("readcount"));
 					article.setRef(rs.getInt("ref"));
 					article.setRe_step(rs.getInt("re_step"));
 					article.setRe_level(rs.getInt("re_level"));
