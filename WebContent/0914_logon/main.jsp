@@ -11,7 +11,7 @@
 		if(session.getAttribute("memId") == null){	%>
 <body onLoad="focusIt();">
 	<form name="inform" method="post" action="./login/loginPro.jsp" onsubmit="return checkIt();">
-	<table id="mainTable" border="1">
+	<table id="mainTable" border="1" align="center">
 		<tr>
 			<td width="300" height="20">&nbsp;</td>
 			<td id="title">아이디</td>
@@ -33,12 +33,12 @@
 </body>
 <%		}else{ %>
 <body>
-	<table border="1">
+	<table border="1" align="center">
 		<tr>
 			<td width="300" height="20">하하하</td>
 			<td rowspan="3" align="center">
 				<%= session.getAttribute("memId") %> 님이 <br>방문하셨습니다
-				<form method="post" action="logout.jsp">
+				<form method="post" action="./login/logout.jsp">
 				<input type="submit" value="로그아웃" />
 				<input type="button" value="회원정보변경" onclick="javascript:window.location='./modify/modify.jsp'"/>
 				</form>
