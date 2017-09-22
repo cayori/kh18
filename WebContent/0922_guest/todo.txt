@@ -1,0 +1,37 @@
+***방명록 만들기***
+1.JdbcUtil.java
+2.ConnectionProvider.java(jdbc:apache:commons:dbcp:/pool)
+3.테이블 생성
+4.Message.java
+5.MessageDao.java
+6.*OracleMessageDao.java
+7.*MessageDaoProvider.java
+8.MessageDaoProviderInit.java
+9.web.xml
+  <servlet>
+	<servlet-name>MessageDaoProviderInit</servlet-name>
+	<servlet-class>ssol.dao.MessageDaoProviderInit</servlet-class>
+	<init-param>
+		<param-name>dbms</param-name>
+		<param-value>oracle</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+10.ServiceException.java
+11.MessageListView.java
+12.GetMessageListService.java
+13.WriteMessageService.java
+14.*InvalidMessagePassowrdException.java
+15.*MessageNotFoundException.java
+16.DeleteMessageService.java
+17.list.jsp
+18.*errorView.jsp
+19.writeMessage.jsp
+20.confirmDeletion.jsp
+21.deleteMessage.jsp.jsp
+
+
+
+
+
+
