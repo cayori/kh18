@@ -29,7 +29,7 @@ public class GetMessageListService {
 			MessageDao messageDao = MessageDaoProvider.getInstance().getMessageDao();
 			
 			int messageTotalCount = messageDao.selectCount(conn);
-			
+
 			List<Message> messageList = null;
 			int firstRow = 0;
 			int endRow = 0;

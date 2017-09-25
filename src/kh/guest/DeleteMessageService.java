@@ -27,7 +27,7 @@ public class DeleteMessageService {
 			if(message == null) {
 				throw new MessageNotFoundException("메세지가 없습니다 : "+messageId);
 			}
-			if(!message.hasPasswd()) {
+			if(!message.matchPasswd(passwd)) {
 				throw new InvalidMessagePasswordException();
 			}
 			messageDao.delete(conn, messageId);

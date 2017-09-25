@@ -60,14 +60,11 @@
 	<center>등록된 메세지가 없습니다.
 <%	}else{	%>
 	<table width="400" border="1" align="center">
-<%//		for(Message message : viewData.getMessageList()){	
-		List<Message> messageList = viewData.getMessageList(); 	
-		for(int i=0; i<messageList.size(); i++){
-			Message message = (Message)messageList.get(i);
-		
+<%		for(Message message : viewData.getMessageList()){	
+				
 %>
 		<tr>
-			<td width="160">메세지번호: <%=message.getId() %></td>
+			<td width="160" colspan="2">메세지번호: <%=message.getId() %></td>
 			<td width="160">손님이름: <%=message.getGuestName() %></td>
 			<td width="80">
 				<a href="./confirmDeletion.jsp?messageId=<%=message.getId()%>">[삭제]</a>
@@ -75,7 +72,7 @@
 		</tr>
 		<tr>
 			<td width="100">메세지</td>
-			<td>
+			<td colspan="3">
 				<%=message.getMessage() %>
 			</td>
 		</tr>

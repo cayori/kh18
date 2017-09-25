@@ -51,7 +51,7 @@ public class OracleMessageDao extends MessageDao{
 					"SELECT message_id, guest_name, passwd, message FROM ("+
 						"SELECT rownum rnum, message_id, guest_name, passwd, message FROM ("+
 							"SELECT * FROM guestbookjpjp_message m ORDER BY m.message_id DESC"+
-						") WHERE rownum >=? "+
+						") WHERE rownum <=? "+
 					") WHERE rnum >=?");
 			pstmt.setInt(1, endRow);
 			pstmt.setInt(2, firstRow);

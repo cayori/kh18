@@ -35,4 +35,8 @@ public class Message {
 	public boolean hasPasswd() {
 		return passwd != null && !passwd.isEmpty();
 	}
+
+	public boolean matchPasswd(String input) {
+		return (passwd.equals(input));
+	}
 }
