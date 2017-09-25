@@ -2,6 +2,7 @@
 <%@ page import = "kh.guest.Message" %>
 <%@ page import = "kh.guest.MessageListView" %>
 <%@ page import = "kh.guest.GetMessageListService" %>
+<%@ page import = "java.util.List" %>
 
 <%
 	String pageNumberStr = request.getParameter("page");
@@ -59,7 +60,12 @@
 	<center>등록된 메세지가 없습니다.
 <%	}else{	%>
 	<table width="400" border="1" align="center">
-<%		for(Message message : viewData.getMessageList()){	%>
+<%//		for(Message message : viewData.getMessageList()){	
+		List<Message> messageList = viewData.getMessageList(); 	
+		for(int i=0; i<messageList.size(); i++){
+			Message message = (Message)messageList.get(i);
+		
+%>
 		<tr>
 			<td width="160">메세지번호: <%=message.getId() %></td>
 			<td width="160">손님이름: <%=message.getGuestName() %></td>
