@@ -85,7 +85,7 @@ public class ArticleDao {
 		PreparedStatement pstmt = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		int result = 0;
+		int resultId = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(
@@ -104,9 +104,9 @@ public class ArticleDao {
 			if(insertedCount > 0) {
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery("SELECT article_id_seq_jp.CURRVAL DROM dual");
-				if(rs.next())	{	result = rs.getInt(1);	}
+				if(rs.next())	{	resultId = rs.getInt(1);	}
 			}else {
-				result = -1;
+				resultId = -1;
 			}
 			
 		}catch(Exception e) {
@@ -115,7 +115,7 @@ public class ArticleDao {
 			JdbcUtil.close(rs, stmt);
 			JdbcUtil.close(pstmt);
 		}		
-		return result;
+		return resultId;
 	}
 	
 	public Article selectById(Connection conn, int articleId) throws SQLException{
@@ -151,7 +151,7 @@ public class ArticleDao {
 		}
 	}
 	
-	public String selectLastSequenceNumber(Connection conn, String searMaxSeqNum, String searchMinSeqNum) throws SQLException{
+	public String selectLastSequenceNumber(Connection conn, String searchMaxSeqNum, String searchMinSeqNum) throws SQLException{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String resultString = "";
@@ -160,7 +160,10 @@ public class ArticleDao {
 			pstmt = conn.prepareStatement("SELECT MIN(sequence_no) FROM article_jp WHERE sequence_no < ? AND sequence_no >= ?");
 			pstmt.setString(1, searchMaxSeqNum);
 			pstmt.setString(2, searchMinSeqNum);
-			rs = pstmt
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())	resultString = rs.getString(1);
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -169,9 +172,36 @@ public class ArticleDao {
 		return resultString;
 	}
 	
-	
-	
-	
-	
-	
+	public int update(Connection conn, Article article) throws SQLException{
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement("UPDATE article SET title=?, content=? WHERE article_id=?");
+			pstmt.setString(1, article.getTitle());
+			pstmt.setString(2, article.getContent());
+			pstmt.setInt(3, article.getId());
+			
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt);
+		}
+		return result;
+	}
+		
+	public void delete(Connection conn, int articleId) throws SQLException{
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement("DELETE FROM article_jp WHERE article_id=?");
+			pstmt.setInt(1, articleId);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt);
+		}
+	}	
 }
