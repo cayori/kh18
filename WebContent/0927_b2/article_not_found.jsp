@@ -1,3 +1,9 @@
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-
-ê²Œì‹œë¬¼ì„ ì°¾ì„ìˆ˜ì—†ìŒ
+<%@ page contentType="text/html; charset=euc-kr" %>
+<html>
+<head><title>¿¡·¯</title></head>
+<body>
+°Ô½Ã±ÛÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.
+<br/>
+<a href="<c:url value='list.jsp'/>">¸ñ·Ïº¸±â</a>
+</body>
+</html>

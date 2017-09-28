@@ -18,7 +18,7 @@ public class WriteArticleService {
 	public static WriteArticleService getInstance() {	return instance;	}
 	
 	public Article write(WritingRequest writingRequest) throws IdGenerationFailedException{
-		int groupId = IdGenerator.getInstance().generateNextId("article");
+		int groupId = IdGenerator.getInstance().generateNextId("article_jp");
 		Article article = writingRequest.toArticle();
 		
 		article.setGroupId(groupId);

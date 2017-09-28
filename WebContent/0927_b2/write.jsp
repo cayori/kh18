@@ -10,6 +10,8 @@
 
 <%
 	Article postedArticle = WriteArticleService.getInstance().write(writingRequest);
+	request.setAttribute("postedArticle", postedArticle);
+
 %>
 
 <html>

@@ -35,7 +35,9 @@ public class ArticleListModel {
 	public int getEndRow() {
 		return endRow;
 	}
-	public boolean isHasArticle() {	return ! articleList.isEmpty();	}
+	public boolean isHasArticle() {
+		return !(articleList == null || articleList.isEmpty());
+	}
 	
 
 }

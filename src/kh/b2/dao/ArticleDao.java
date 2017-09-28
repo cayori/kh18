@@ -42,11 +42,12 @@ public class ArticleDao {
 		ResultSet rs = null;
 		List<Article> resultList = null;
 		try {
-			pstmt = conn.prepareStatement( // 서브쿼리 괄호 하나 줄여도 되나???
+			pstmt = conn.prepareStatement( 
 					"SELECT article_id, group_id, sequence_no, posting_date, read_count, writer_name, password, title FROM "+
-					"(SELECT * FROM article_jp m ORDER BY m.sequence_no DESC) WHERE rownum >=? AND rownum <=?"	);
-			pstmt.setInt(1, firstRow);
-			pstmt.setInt(2, endRow);
+					"(SELECT rownum rnum, article_id, group_id, sequence_no, posting_date, read_count, writer_name, password, title FROM "+
+					"(SELECT * FROM article_jp m ORDER BY m.sequence_no DESC) WHERE rownum <=?) WHERE rnum >=?"	);
+			pstmt.setInt(1, endRow);
+			pstmt.setInt(2, firstRow);
 			rs = pstmt.executeQuery();
 			if( !rs.next() ) {
 				resultList = Collections.emptyList();
@@ -103,7 +104,7 @@ public class ArticleDao {
 			
 			if(insertedCount > 0) {
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("SELECT article_id_seq_jp.CURRVAL DROM dual");
+				rs = stmt.executeQuery("SELECT article_id_seq_jp.CURRVAL FROM dual");
 				if(rs.next())	{	resultId = rs.getInt(1);	}
 			}else {
 				resultId = -1;
@@ -124,7 +125,7 @@ public class ArticleDao {
 		Article resultArticle = null;
 		
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM article WHERE article_id=?");
+			pstmt = conn.prepareStatement("SELECT * FROM article_jp WHERE article_id=?");
 			pstmt.setInt(1, articleId);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
