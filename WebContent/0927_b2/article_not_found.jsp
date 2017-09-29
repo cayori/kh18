@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
+<%@ page contentType="text/html; charset=utf-8" %>
 <html>
-<head><title>¿¡·¯</title></head>
+<head><title>ì—ëŸ¬</title></head>
 <body>
-°Ô½Ã±ÛÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.
+ê²Œì‹œê¸€ì´ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤
 <br/>
-<a href="<c:url value='list.jsp'/>">¸ñ·Ïº¸±â</a>
+<a href="<c:url value='list.jsp'/>">ëª©ë¡ë³´ê¸°</a>
 </body>
 </html>

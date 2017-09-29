@@ -34,13 +34,15 @@ public class UpdateArticleService {
 			
 			ArticleDao articleDao = ArticleDao.getInstance();
 			int updateCount = articleDao.update(conn, updatedArticle);
+			
 			if(updateCount == 0) {
 				throw new ArticleNotFoundException("게시글이 존재하지 않습니다: "+updateRequest.getArticleId());
 			}
 			
 			updatedArticle = articleDao.selectById(conn, updateRequest.getArticleId());
-			
 			conn.commit();
+			
+			
 		}catch(SQLException e) {
 			JdbcUtil.rollback(conn);
 			throw new RuntimeException("DB 에러 발생: "+e.getMessage(), e);

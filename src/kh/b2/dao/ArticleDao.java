@@ -178,7 +178,7 @@ public class ArticleDao {
 		int result = 0;
 		
 		try {
-			pstmt = conn.prepareStatement("UPDATE article SET title=?, content=? WHERE article_id=?");
+			pstmt = conn.prepareStatement("UPDATE article_jp SET title=?, content=? WHERE article_id=?");
 			pstmt.setString(1, article.getTitle());
 			pstmt.setString(2, article.getContent());
 			pstmt.setInt(3, article.getId());
