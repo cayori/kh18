@@ -105,6 +105,23 @@ public class PdsItemDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		int result = -1;
+		
+		try {
+			pstmt = conn.prepareStatement("INSERT INTO pds_item_jp "
+					+ "(pds_item_id, filename, realpath, filesize, downloadcount, description) "
+					+ "VALUES (pds_item_jp_seq.NEXTVAL,?,?,?,0,?");
+			pstmt.setString(1, pdsItem.getFileName());
+			pstmt.setString(2, pdsItem.getRealPath());
+			pstmt.setLong(3, pdsItem.getFileSize());
+			pstmt.setString(4, pdsItem.getDescription());
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(rs, pstmt);
+			JdbcUtil.close(stmt);
+		}
+		
 		return result;
 	}
 	
