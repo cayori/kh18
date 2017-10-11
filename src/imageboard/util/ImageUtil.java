@@ -44,7 +44,7 @@ public class ImageUtil {
 			destWidth = (int)((double)srcWidth * ratio);
 		}else if(height == RATIO) {
 			double ratio = ((double)destWidth) / ((double)srcWidth);
-			destWidth = (int)((double)srcHeight * ratio);
+			destHeight = (int)((double)srcHeight * ratio);
 		}
 		
 		BufferedImage destImg = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_3BYTE_BGR);

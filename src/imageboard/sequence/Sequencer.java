@@ -13,7 +13,7 @@ public class Sequencer {
 		int id = -1;
 		
 		try {
-			pstmtSelect = conn.prepareStatement("SELECT message_id FROM id_sequences WHERE table_name=?");
+			pstmtSelect = conn.prepareStatement("SELECT message_id FROM id_sequences_jp WHERE table_name=?");
 			pstmtSelect.setString(1, tableName);
 			
 			rsSelect = pstmtSelect.executeQuery();
@@ -22,12 +22,12 @@ public class Sequencer {
 				id = rsSelect.getInt(1);
 				id++;
 				
-				pstmtUpdate = conn.prepareStatement("UPDATE id_sequences SET message_id=? WHERE table_name=?");
+				pstmtUpdate = conn.prepareStatement("UPDATE id_sequences_jp SET message_id=? WHERE table_name=?");
 				pstmtUpdate.setInt(1, id);
 				pstmtUpdate.setString(2, tableName);
 				pstmtUpdate.executeUpdate();
 			}else {
-				pstmtUpdate = conn.prepareStatement("INSERT INTP id_sequences VALUES(?,?)");
+				pstmtUpdate = conn.prepareStatement("INSERT INTO id_sequences_jp VALUES(?,?)");
 				pstmtUpdate.setString(1, tableName);
 				pstmtUpdate.setInt(2, 1);
 				pstmtUpdate.executeUpdate();

@@ -75,7 +75,7 @@ public class ThemeManager {
 				
 			// 특정 글의 답변 글인 경우 같은 그룹 내에서 순서 번호를 변경한다.
 			if(theme.getOrderNo() > 0) {
-				pstmtOrderUpdate = conn.prepareStatement("UPDATE theme_messaage_jp SET order_no = order_no +1 "
+				pstmtOrderUpdate = conn.prepareStatement("UPDATE theme_message_jp SET order_no = order_no +1 "
 						+ "WHERE group_id=? AND order_no=?");
 				pstmtOrderUpdate.setInt(1, theme.getGroupId());
 				pstmtOrderUpdate.setInt(2, theme.getOrderNo());
@@ -233,7 +233,7 @@ public class ThemeManager {
 			
 			query.append("SELECT * FROM (");
 			query.append("SELECT theme_message_id, group_id, order_no, levels, parent_id, register, name, email, image, password, title, ROWNUM rnum FROM (");
-			query.append("SELECT theme_message_id, group_id, order_no, levels, parent_id, register, name, email, image, password, title FROM theme_message ");
+			query.append("SELECT theme_message_id, group_id, order_no, levels, parent_id, register, name, email, image, password, title FROM theme_message_jp ");
 			
 			if(whereCond!=null && whereCond.size()>0) {
 				query.append("WHERE ");
@@ -309,7 +309,7 @@ public class ThemeManager {
 		
 		try {
 			conn = getConnection();
-			pstmtMessage = conn.prepareStatement("SELECT * FROM theme_message WHERE theme_message_id=?");
+			pstmtMessage = conn.prepareStatement("SELECT * FROM theme_message_jp WHERE theme_message_id=?");
 			pstmtMessage.setInt(1,id);
 			rsMessage = pstmtMessage.executeQuery();
 			
