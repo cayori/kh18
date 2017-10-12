@@ -1,0 +1,66 @@
+javabean:	BoardDataBean, CommentDataBean
+
+DAO:		BoardDBBean
+			- BoardDBBean getInstance() : Singleton Pattern
+			- Connection getConnection() : 
+			- void insertArticle(BoardDataBean b) : writePro.jsp (게시물 입력)
+			- int getArticleCount(): list.jsp (입력글의 갯수 리턴)
+			- int getArticleCount(int n, String searchKeyword) : list.jsp 키워드로 검색된 글 갯수 리턴
+			- List getArticles(int s, int e) : list.jsp (s부터 e 까지의 데이터 가져옴)
+			- List getArticles(int s, int e, int n, String searchKeyword) : list.jsp (검색된 글의 s부터 e까지 가져옴)
+			- BoardDataBean getArticle(int num) : content.jsp (글번의 해당하는 데이터 한줄을 가져옴)
+			- BoardDataBean updateGetArticle(int num) : updateForm.jsp (수정하기 위한 데이터 한줄을 가져옴)
+			= int updateArticle(BoardDataBean b) : updatePro.jsp (글수정)
+			- int deleteArticle(int num, String passwd) : deletePro.jsp (글삭제)
+			
+			CommentDBBean
+			- CommentDBBean getInstance() : Singleton Pattern
+			- Connection getConnection() : 
+			- void insertComment(CommentDataBean c) : contentPro.jsp (댓글입력)
+			- List getComments(String content_num, int s, int e) : content.jsp (게시글 번호에 해당하는 s 부터 e 까지의 데이터 가져옴)
+			- getCommentCount() : content.jsp (댓글의 입력갯수 가져옴)
+			- deleteComment() : delCommentPro.jsp (댓글삭제)			
+			z
+웹관련된 파일(/WebContent/board/)
+			- color.jsp, style.css, script.js
+			
+			- 글입력 : writeForm.jsp =====> writePro.jsp
+			                 
+			- 리스트 : list.jsp[검색]
+			
+			- 글상세보기 : content.jsp
+			- 댓글입력 : content.jsp  =====> contentPro.jsp
+			- 댓글삭제 : content.jsp  =====> delCommentForm.jsp =====> delCommentPro.jsp
+			- 글수정 : updateForm.jsp =====> updatePro.jsp
+			- 글삭제 : deleteForm.jsp =====> deletePro.jsp  
+			
+			
+* JSP 기초문법
+* JDBC 프로그래밍
+* 회원가입 + 로그인
+	- 쿠키를 활용한 ID저장
+	- ID 찾기 / 비밀번호 찾기
+	- 회원리스트 (검색기능 추가)
+* 게시판
+	- 검색기능 추가
+	- 댓글기능
+* 로그인 여부에 따른 기능제한
+
+
+9/21 일. 다시 정리시간
+- 다음 우편번호 api 이용설명
+
+* 회원가입+로그인
++ 우편번호(다음 api 사용)
+	http://postcode.map.daum.net/guide
++ ID 찾기
++ 비밀번호 찾기
++ 회원리스트(관리자)
+
+* 게시판
++ 답변형 게시판 (ref, step, level) --- 서브쿼리 혼자 만들어 보기
++ 검색로직 (우리는 select tag 이용. 체크박스(다나와) 도 흉내내보기)
++ 댓글 (우리가 한건 입력할떼 commentPro.jsp 갔다 오는 식. 실무에선 스크립트 이용해서 ajax pattern 이용)
++ 댓글의 답변형 업그레이드
++ 로그인 여부에 따른 사용제한 (세션속성검색)
++ 답변글이 있을 때 메인 글이 삭제 안되도록하기

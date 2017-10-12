@@ -46,6 +46,58 @@
     	</init-param>
     	<load-on-startup>1</load-on-startup>
   </servlet>
+
+  <servlet>
+  		<servlet-name>SimpleController</servlet-name>
+  		<servlet-class>kh.mvc.SimpleController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>SimpleController</servlet-name>
+  		<url-pattern>/simple</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+  		<servlet-name>ControllerUsingFile</servlet-name>
+  		<servlet-class>kh.mvc.controller.ControllerUsingFile</servlet-class>
+  		<init-param>
+  			<param-name>configFile</param-name>
+  			<param-value>/WEB-INF/commandHandler.properties</param-value>
+  		</init-param>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>ControllerUsingFile</servlet-name>
+  		<url-pattern>/controllerUsingFile</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+  		<servlet-name>ControllerUsingURI</servlet-name>
+  		<servlet-class>kh.mvc.controller.ControllerUsingURI</servlet-class>
+  		<init-param>
+  			<param-name>configFile2</param-name>
+  			<param-value>/WEB-INF/commandHandlerURI.properties</param-value>
+  		</init-param>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>ControllerUsingURI</servlet-name>
+  		<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  		<servlet-name>ControllerMvcBoard</servlet-name>
+  		<servlet-class>kh.mvcboard.controller.ControllerMvcBoard</servlet-class>
+  		<init-param>
+  			<param-name>configActionList</param-name>
+  			<param-value>/WEB-INF/commandActionList.properties</param-value>
+  		</init-param>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>ControllerMvcBoard</servlet-name>
+  		<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  
+    
+  
   
   <servlet-mapping>
     <servlet-name>NowServlet</servlet-name>
