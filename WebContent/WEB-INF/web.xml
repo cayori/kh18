@@ -92,7 +92,7 @@
   </servlet>
   <servlet-mapping>
   		<servlet-name>ControllerMvcBoard</servlet-name>
-  		<url-pattern>*.do</url-pattern>
+  		<url-pattern>*.go</url-pattern>
   </servlet-mapping>
   
   

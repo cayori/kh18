@@ -13,6 +13,7 @@
 <%@ page import = "imageboard.gallery.ThemeManagerException" %>
 
 <%
+	//request.setCharacterEncoding("utf-8");
 	FileUploadRequestWrapper requestWrap = new FileUploadRequestWrapper(request, -1, -1, "C:\\JAVA\\workspace\\KH18\\WebContent\\1010_image\\temp");
 	HttpServletRequest tempRequest = request;
 	request = requestWrap;

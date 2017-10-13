@@ -125,6 +125,7 @@ public class BoardDBBean {
 				articleList = new ArrayList<BoardDataBean>(end);
 				do {
 					BoardDataBean article = new BoardDataBean();
+					CommentDBBean cdb = CommentDBBean.getInstance();
 					article.setNum(rs.getInt("num"));
 					article.setWriter(rs.getString("writer"));
 					article.setEmail(rs.getString("email"));
@@ -137,6 +138,7 @@ public class BoardDBBean {
 					article.setRe_level(rs.getInt("re_level"));
 					article.setContent(rs.getString("content"));
 					article.setIp(rs.getString("ip"));
+					article.setComment_count(cdb.getCommentCount(rs.getInt("num")));
 					
 					articleList.add(article);
 				}while(rs.next());
@@ -359,6 +361,7 @@ public class BoardDBBean {
 				articleList = new ArrayList<BoardDataBean>(end);
 				do {
 					BoardDataBean article = new BoardDataBean();
+					CommentDBBean cdb = CommentDBBean.getInstance();
 					article.setNum(rs.getInt("num"));
 					article.setWriter(rs.getString("writer"));
 					article.setEmail(rs.getString("email"));
@@ -371,6 +374,7 @@ public class BoardDBBean {
 					article.setRe_level(rs.getInt("re_level"));
 					article.setContent(rs.getString("content"));
 					article.setIp(rs.getString("ip"));
+					article.setComment_count(cdb.getCommentCount(rs.getInt("num")));
 					
 					articleList.add(article);
 				}while(rs.next());

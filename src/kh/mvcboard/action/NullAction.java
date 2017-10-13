@@ -7,7 +7,7 @@ public class NullAction implements CommandAction{
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		return "/1012_mvcboard/view/nullCommand.jsp";
+		return "/MVC/nullCommand.jsp";
 	}
 	
 }
