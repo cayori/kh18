@@ -105,7 +105,7 @@ function writeSave(){
 			</td>
 			<td align="center">
 				작성자<br>
-				<input type="text" name="commenter" size=10"><br>
+				<input type="text" name="commenter" size="10"><br>
 				비밀번호<br>
 				<input type="password" name="passwd" size="10"><p>
 				<input type="submit" value="코멘트달기">

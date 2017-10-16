@@ -9,10 +9,10 @@ public class WriteFormAction implements CommandAction{
 		
 		try {
 			if(request.getParameter("num") != null) {
-				num = Integer.parseInt("num");
-				ref = Integer.parseInt("ref");
-				re_step = Integer.parseInt("re_step");
-				re_level = Integer.parseInt("re_level");
+				num = Integer.parseInt(request.getParameter("num"));
+				ref = Integer.parseInt(request.getParameter("ref"));
+				re_step = Integer.parseInt(request.getParameter("re_step"));
+				re_level = Integer.parseInt(request.getParameter("re_level"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
